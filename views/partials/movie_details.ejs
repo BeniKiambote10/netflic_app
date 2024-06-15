@@ -1,0 +1,55 @@
+<main>
+    <!-- Container for the main movie details -->
+    <div class="movie-details">
+        <!-- Container for the movie poster -->
+        <div class="poster">
+            <!-- Display the movie poster image, set the source URL using the movie poster path, and set up a click event to play the trailer -->
+            <img src="<%= 'https://image.tmdb.org/t/p/w500' + movie.poster_path %>" alt="<%= movie.title %> Poster" onclick="playTrailer('<%= movie.trailer_url %>')">
+        </div>
+        <!-- for the movie information -->
+        <div class="info">
+            <!-- Display the movie title -->
+            <h1><%= movie.title %></h1>
+            <!-- Display the movie tagline -->
+            <p class="tagline"><%= movie.tagline %></p>
+            <!-- Display the movie overview/description -->
+            <p class="overview"><%= movie.overview %></p>
+            <!-- Display the movie release date -->
+            <p class="release-date">Released: <%= movie.release_date %></p>
+            <!-- Display the movie runtime in minutes -->
+            <p class="runtime">Runtime: <%= movie.runtime %> minutes</p>
+            <!-- Display the movie genres -->
+            <p class="genres">Genres: 
+                <!-- Loop through each genre and display it -->
+                <% movie.genres.forEach(function(genre) { %>
+                    <%= genre.name %>
+                    <!-- Add a comma if the genre is not the last one in the list -->
+                    <% if (genre !== movie.genres[movie.genres.length - 1]) { %>, <% } %>
+                <% }); %>
+            </p>
+            <!-- Display the movie rating and the number of votes -->
+            <p class="rating">Rating: <%= movie.vote_average %> / 10 (<%= movie.vote_count %> votes)</p>
+        </div>
+    </div>
+
+    <!-- Container for similar movies -->
+    <div class="similar-movies">
+        <!-- Heading for similar movies section -->
+        <h2>Similar Movies</h2>
+        <!-- List of similar movies -->
+        <ul>
+            <!-- Loop through each similar movie and create a list item -->
+            <% similarMovies.forEach(function(movie) { %>
+                <li>
+                    <!-- Link to the movie details page for the similar movie -->
+                    <a href="/movie/<%= movie.id %>">
+                        <!-- Display the similar movie poster image, set the source URL, and set up a click event to play the trailer -->
+                        <img src="<%= movie.poster_path %>" alt="<%= movie.title %> Poster" onclick="playTrailer('<%= movie.trailer_url %>')">
+                        <!-- Display the similar movie title -->
+                        <p><%= movie.title %></p>
+                    </a>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+</main>

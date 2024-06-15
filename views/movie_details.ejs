@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= movie.title %> - NETFLIC</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <a href="/" class="logo"><h1>NETFLIC</h1></a> 
+        <form action="/search" method="POST">
+            <input type="text" id="title" name="title" placeholder="Enter Movie Title" required>
+            <button type="submit">Search</button>
+        </form>
+    </header>
+    <main>
+        <div class="movie-details">
+            <div class="poster">
+                <img src="<%= 'https://image.tmdb.org/t/p/w500' + movie.poster_path %>" alt="<%= movie.title %> Poster">
+            </div>
+            <div class="info">
+                <h1><%= movie.title %></h1>
+                <p class="tagline"><%= movie.tagline %></p>
+                <p class="overview"><%= movie.overview %></p>
+                <p class="release-date">Released: <%= movie.release_date %></p>
+                <p class="runtime">Runtime: <%= movie.runtime %> minutes</p>
+                <p class="genres">Genres:
+                    <% movie.genres.forEach(function(genre, index) { %>
+                        <%= genre.name %><%= index < movie.genres.length - 1 ? ', ' : '' %>
+                    <% }); %>
+                </p>
+                <p class="rating">Rating: <%= movie.vote_average %> / 10 (<%= movie.vote_count %> votes)</p>
+            </div>
+        </div>
+
+        <div class="similar-movies">
+            <h2>Similar Movies</h2>
+            <ul>
+                <% similarMovies.forEach(function(movie) { %>
+                    <li>
+                        <a href="/movie/<%= movie.id %>">
+                            <img src="<%= 'https://image.tmdb.org/t/p/w500' + movie.poster_path %>" alt="<%= movie.title %> Poster">
+                            <p><%= movie.title %></p>
+                        </a>
+                    </li>
+                <% }); %>
+            </ul>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Beni Movie Finder. All rights reserved.</p>
+    </footer>
+</body>
+</html>
